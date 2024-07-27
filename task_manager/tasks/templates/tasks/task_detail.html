@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{{ task.title }}</h2>
+    <p>{{ task.description }}</p>
+    <p>Status: {{ task.status }}</p>
+    <p>Priority: {{ task.priority }}</p>
+    <p>Due date: {{ task.due_date }}</p>
+    <p><a href="{{ task.task_url }}">Task URL</a></p>
+
+    <h3>Comments</h3>
+    <ul>
+        {% for comment in comments %}
+            <li>{{ comment.text }} - {{ comment.author.username }} on {{ comment.create_date }}</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Add Comment</h3>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Add Comment</button>
+    </form>
+{% endblock %}
